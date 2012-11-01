@@ -1,0 +1,3 @@
+window.foo = {
+  bar: 'baz'
+};
