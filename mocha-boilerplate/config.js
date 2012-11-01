@@ -1,10 +1,10 @@
 (function() {
 
-// test mode -- 'tdd' or 'bdd'
+// test mode -- 'tdd', 'bdd-should', or 'bdd-expect'
 var mode = 'tdd';
 
 // location of your app files relative to this file
-var appDir = '../fake-app-dir/js';
+var appDir = '../demo-app/js';
 
 // location of all of the app files you'd like to test,
 // relative to the appDir specified above. do not include
@@ -29,9 +29,9 @@ var appFiles = [
 // for example:
 //
 //    var appLibs = {
-//      backbone: '../fake-app-dir/vendor/backbone-min',
-//      underscore: '../fake-app-dir/vendor/underscore-min',
-//      jquery: '../fake-app-dir/vendor/jquery'
+//      backbone: '../demo-app/vendor/backbone-min',
+//      underscore: '../demo-app/vendor/underscore-min',
+//      jquery: '../demo-app/vendor/jquery'
 //    };
 var appLibs = {
 
@@ -66,11 +66,15 @@ if ( mode === 'tdd' ) {
   window.assert = chai.assert;
 }
 
-if ( mode === 'bdd' ) {
+if ( mode === 'bdd-should' ) {
   window.should = chai.should();
 }
 
-mocha.setup( mode );
+if ( mode === 'bdd-expect' ) {
+  window.expect = chai.expect;
+}
+
+mocha.setup( mode.split('-')[0] );
 
 var paths = {
   app: appDir
