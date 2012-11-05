@@ -6,23 +6,6 @@ var mode = 'tdd';
 // location of your app files relative to this file
 var appDir = '../demo-app/js';
 
-// location of all of the app files you'd like to test,
-// relative to the appDir specified above. do not include
-// the file extension.
-//
-// for example:
-//
-//    var appFiles = [
-//      'app'
-//    ];
-//
-// alternately, if you understand how to use the shim object
-// in the requirejs config, you can modify the shim object below
-// and add your app files there, with their dependencies.
-var appFiles = [
-
-];
-
 // any vendor libraries or plugins you are using, and their
 // location relative to this configuration file.
 //
@@ -87,14 +70,15 @@ for (var lib in appLibs) {
   paths[ lib ] = appLibs[ lib ];
 }
 
-appFiles.forEach(function(f) {
-  shim[ 'app/' + f.replace(/\.js$/, '') ] = appLibsArray;
-});
-
 require.config({
-  deps: [ 'tests/main' ],
   paths: paths,
   shim: shim
+});
+
+require([ 'list_of_tests' ], function( lot ) {
+  require( lot, function() {
+    mocha.run();
+  });
 });
 
 }());
