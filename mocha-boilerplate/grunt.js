@@ -25,6 +25,10 @@ module.exports = function(grunt) {
         browser: true
       },
       globals: {}
+    },
+    mocha: {
+      index: [ 'runner/index.html' ],
+      run: true
     }
   });
 
