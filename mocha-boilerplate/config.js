@@ -17,7 +17,6 @@ var appDir = '../demo-app/js';
 //      jquery: '../demo-app/vendor/jquery'
 //    };
 var appLibs = {
-
 };
 
 // if your vendor libraries have dependencies on other libraries,
@@ -37,10 +36,7 @@ var appLibs = {
 //    };
 
 var shim = {
-
 };
-
-
 
 // you shouldn't need to modify anything below here, and if you do
 // modify anything below here, you should know what you're doing :)
@@ -75,7 +71,13 @@ require.config({
   shim: shim
 });
 
-require([ 'list_of_tests' ], function( lot ) {
+var listOfLibs = [ 'list_of_tests' ];
+
+for ( var lib in appLibs ) {
+  listOfLibs.push( lib );
+}
+
+require( listOfLibs, function( lot ) {
   require( lot, function() {
     mocha.run();
   });
