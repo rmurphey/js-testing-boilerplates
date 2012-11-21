@@ -1,7 +1,7 @@
 define([ 'app/main' ], function() {
-  suite('foo', function() {
+  suite('example', function() {
     test('it works', function() {
-      assert.ok( window.foo.bar === 'baz' );
+      assert.ok( true );
     });
   });
 });
