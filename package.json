@@ -1,7 +1,7 @@
 {
   "name": "jsbp",
   "description": "Boilerplates for Javascript projects",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Rebecca Murphey (@rmurphey)",
   "contributors": [
     { "name": "Tom Ashworth", "email": "tom@phuu.net" }
