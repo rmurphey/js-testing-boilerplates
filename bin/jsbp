@@ -30,8 +30,13 @@ var msg = {};
 msg.welcome = [
   '',
   'Hi!',
+  '  So, what\'s your app called? : '
+].join(eol + '  ');
+
+msg.getting_ready = [
   '',
-  'So, what\'s your app called? : '
+  'We\'ll be copying into a directory with the same name.',
+  '  That cool? : '
 ].join(eol + '  ');
 
 msg.no_such_bp = [
@@ -59,8 +64,7 @@ msg.not_empty = [
 
 msg.copying = [
   '',
-  'Copying \'%s\' into \'%s\'...',
-  ''
+  'Copying \'%s\' into \'%s\'...'
 ].join(eol + '  ');
 
 msg.exit = [
@@ -157,27 +161,34 @@ program.prompt(msg.welcome, function (name) {
   
   var target_dir = path.resolve(process.cwd(), name);
 
-  // Check that the target is ok to use
+  // Do a quick checksee with the user
 
-  check_dir(target_dir, function (err) {
-    if( err ) { return abort(err); }
+  program.confirm(msg.getting_ready, function (ok) {
 
-    // We can now think about copying stuff over
+    if( !ok ) { abort(); }
 
-    fs.mkdirp(target_dir, function (err) {
+    // Make sure that the target is ok to use
+
+    check_dir(target_dir, function (err) {
       if( err ) { return abort(err); }
 
-      // And do the copying
+      // We can now think about copying stuff over
 
-      console.log(msg.copying, boilerplate, name);      
-
-      ncp(source_dir, target_dir, function (err) {
+      fs.mkdirp(target_dir, function (err) {
         if( err ) { return abort(err); }
 
-        // Say bye!
+        // And do the copying
 
-        console.log(msg.exit, name);
-        process.exit(0);
+        console.log(msg.copying, boilerplate, name);
+
+        ncp(source_dir, target_dir, function (err) {
+          if( err ) { return abort(err); }
+
+          // Say bye!
+
+          console.log(msg.exit, name);
+          process.exit(0);
+        });
       });
     });
   });
