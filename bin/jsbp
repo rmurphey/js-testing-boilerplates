@@ -101,7 +101,7 @@ program
 // Abort the application
 
 var abort = function (str) {
-  console.error(str);
+  if( str ) { console.error(str); }
   process.exit(1);
 };
 
@@ -120,11 +120,8 @@ var check_dir = function (path, fn) {
   check_dir_is_empty(path, function (empty) {
     if( !empty ) {
       program.confirm(msg.not_empty, function (ok) {
-        if( ok ) {
-          fs.remove(path, fn);
-        } else {
-          abort();
-        }
+        if( !ok ) { abort(); }
+        fn();
       });
     } else {
       fn();
@@ -141,19 +138,14 @@ var boilerplate = program.args.shift()
 
 // Check the boilerplate they requested against our lookup
 
-if( boilerplates.indexOf(boilerplate) === -1 ) {
-  abort(msg.no_such_bp);
-}
+if( boilerplates.indexOf(boilerplate) === -1 ) { abort(msg.no_such_bp); }
 
 // Check that the source directory exists
 
-var source_dir = path.resolve(__dirname, '..', boilerplates[bp_index]);
+var source_dir = path.resolve(__dirname, '..', boilerplates[bp_index])
+  , exists = fs.existsSync(source_dir);
 
-var exists = fs.existsSync(source_dir);
-
-if( !exists ) {
-  abort(msg.missing_source, boilerplate);
-}
+if( !exists ) { abort(msg.missing_source, boilerplate); }
 
 // Get some info about their app and copy the files over
 
