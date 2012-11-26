@@ -1,10 +1,10 @@
 {
   "name": "jsbp",
   "description": "Boilerplates for Javascript projects",
-  "version": "0.1.0",
-  "author": "Rebecca Murphey (@rmurphey)",
+  "version": "0.1.1",
+  "author": "Rebecca Murphey (http://rmurphey.com)",
   "contributors": [
-    { "name": "Tom Ashworth", "email": "tom@phuu.net" }
+    "Tom Ashworth <tom@phuu.net> (http://phuu.net)"
   ],
   "dependencies": {
     "commander": "0.6.1",
@@ -12,8 +12,6 @@
     "ncp": "*"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*"
   },
   "keywords": [],
   "repository": "git://github.com/rmurphey/js-testing-boilerplates.git",
