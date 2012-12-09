@@ -1,0 +1,16 @@
+{
+  "name": "qunit-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for adding QUnit tests to a client-side JS project",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [
+    "qunit",
+    "testing",
+    "test",
+    "boilerplate"
+  ],
+  "author": "Jared Stilwell",
+  "license": "MIT/BSD"
+}
