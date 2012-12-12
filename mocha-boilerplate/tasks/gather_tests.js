@@ -4,7 +4,7 @@ module.exports = function( grunt ) {
 		var fs = require( 'fs' ),
 			path = require( 'path' ),
 			testDir = 'tests',
-			tests = []
+			tests = [];
 
 		// List the files in the tests directory.
 		fs.readdirSync( testDir ).filter( function( file ) {
@@ -20,7 +20,7 @@ module.exports = function( grunt ) {
 			);
 		});
 
-		// Format the test name as a RequireJS module.
+		// Format the test names as RequireJS modules.
 		tests = tests.map( function( test ) {
 			return "'" + test.split('.')[0] + "'";
 		}).join(",\n    ");
