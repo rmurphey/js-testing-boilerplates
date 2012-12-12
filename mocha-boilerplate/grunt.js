@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      tasks: 'lint test'
     },
     jshint: {
       options: {
@@ -32,6 +32,8 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.registerTask('default', 'lint mocha');
+  grunt.loadTasks('tasks');
 
+  grunt.registerTask('test', 'gatherTests mocha');
+  grunt.registerTask('default', 'lint test');
 };
