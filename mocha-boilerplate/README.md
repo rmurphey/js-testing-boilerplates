@@ -30,9 +30,9 @@ You can edit this file to create your own tests, or you can create a new file th
 
 ### Adding tests
 
-Presently, you need to edit the `list_of_tests.js` file when you add tests; this file will be automatically generated in a future version of the boilerplate.
+When you add a test to the `tests` directory, make sure you run `grunt gatherTests` in order to regenerate the file `list_of_tests.js`. This grunt task is run automatically when you run `grunt test` (see below).
 
-## Running the tests
+## Running the tests in a browser
 
 You can run the tests in a browser by opening the file at `runner/index.html`.
 
@@ -41,4 +41,4 @@ You can run the tests in a browser by opening the file at `runner/index.html`.
 - Install [Node](http://nodejs.org)
 - Install [Grunt](http://gruntjs.com) and [PhantomJS](http://phantomjs.org/download.html), and then run `npm install` from this directory to install the dependencies.
 
-From this directory, run `grunt mocha` from the command line to run the tests.
+From this directory, run `grunt test` from the command line to run the tests.
