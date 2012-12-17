@@ -1,0 +1,28 @@
+{
+  "name": "qunit-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for adding QUnit tests to a client-side JS project",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [
+    "qunit",
+    "testing",
+    "test",
+    "boilerplate"
+  ],
+  "author": "Rebecca Murphey",
+  "license": "MIT/BSD",
+  "contributors": [
+    {
+      "name": "Jared Stilwell",
+      "email": "jared.k.stilwell@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-jshint": "0.1.x",
+    "grunt-contrib-watch": "0.1.x",
+    "grunt-contrib-qunit": "0.1.x"
+  }
+}
