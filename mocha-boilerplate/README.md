@@ -10,7 +10,7 @@ Follow the instructions below to configure the boilerplate and start writing you
 
 Open the `config.js` file in this directory and follow the instructions for configuring your project.
 
-You may also want to edit the `grunt.js` file in this directory to change the JSHint [options](http://www.jshint.com/docs/).
+You may also want to edit the `Gruntfile.js` file in this directory to change the JSHint [options](http://www.jshint.com/docs/).
 
 ## Creating a test
 
@@ -39,6 +39,6 @@ You can run the tests in a browser by opening the file at `runner/index.html`.
 ### Running the tests with Grunt
 
 - Install [Node](http://nodejs.org)
-- Install [Grunt](http://gruntjs.com) and [PhantomJS](http://phantomjs.org/download.html), and then run `npm install` from this directory to install the dependencies.
+- Install [Grunt](http://gruntjs.com), and then run `npm install` from this directory to install the dependencies.
 
 From this directory, run `grunt test` from the command line to run the tests.
