@@ -1,0 +1,187 @@
+#!/usr/bin/env node
+
+// Dependencies
+
+var exec = require('child_process').exec
+  , program = require('commander')
+  , path = require('path')
+  , os = require('os')
+  , fs = require('fs-extra')
+  , ncp = require('ncp').ncp
+  , pkg = require('../package.json')
+  , version = pkg.version;
+
+// OS-specific line endings
+
+var eol = 'win32' == os.platform() ? '\r\n' : '\n';
+
+// ======================
+// Config
+// ======================
+
+// Temporary list of boilerplates
+
+var boilerplates = ['mocha-boilerplate'];
+
+// Messages for the user
+
+var msg = {};
+
+msg.welcome = [
+  '',
+  'Hi!',
+  '  So, what\'s your app called? : '
+].join(eol + '  ');
+
+msg.getting_ready = [
+  '',
+  'We\'ll be copying into a directory with the same name.',
+  '  That cool? : '
+].join(eol + '  ');
+
+msg.no_such_bp = [
+  '',
+  'Hmm, looks like the boilerplate you specified couldn\'t be found.',
+  '',
+  'Available:',
+  '  ' + boilerplates.join(', '),
+  ''
+].join(eol + '  ');
+
+msg.missing_source = [
+  '',
+  'Huh. That boilerplate is in our list but couldn\'t be found.',
+  '',
+  'Please let us know at https://github.com/rmurphey/js-testing-boilerplates/issues.',
+  ''
+].join(eol + '  ');
+
+msg.not_empty = [
+  '',
+  'The target directory is not empty!',
+  '  Do you want to continue? : '
+].join(eol + '  ');
+
+msg.copying = [
+  '',
+  'Copying \'%s\' into \'%s\'...'
+].join(eol + '  ');
+
+msg.exit = [
+  '',
+  'Great, looks like you\'re all set up.',
+  '',
+  'Next, install dependencies:',
+  '  cd %s && npm install',
+  '',
+  'And enjoy!',
+  ''
+].join(eol + '  ');
+
+// ======================
+// CLI
+// ======================
+
+program
+  .version(version)
+  .usage('<boilerplate>')
+  .on('--help', function () {
+    console.log('  Available:'),
+    console.log();
+    console.log('    ' + boilerplates.join(', '));
+    console.log();
+  })
+  .parse(process.argv);
+
+
+// ======================
+// Useful stuff
+// ======================
+
+// Abort the application
+
+var abort = function (str) {
+  if( str ) { console.error(str); }
+  process.exit(1);
+};
+
+// Check if the target directory is empty
+
+var check_dir_is_empty = function (path, fn) {
+  fs.readdir(path, function(err, files){
+    if (err && 'ENOENT' != err.code) throw err;
+    fn(!files || !files.length);
+  });
+};
+
+// Check if the target directory is ok to be used
+
+var check_dir = function (path, fn) {
+  check_dir_is_empty(path, function (empty) {
+    if( !empty ) {
+      program.confirm(msg.not_empty, function (ok) {
+        if( !ok ) { abort(); }
+        fn();
+      });
+    } else {
+      fn();
+    }
+  });
+};
+
+// ======================
+// Get movin'
+// ======================
+
+var boilerplate = program.args.shift()
+  , bp_index = boilerplates.indexOf(boilerplate);
+
+// Check the boilerplate they requested against our lookup
+
+if( boilerplates.indexOf(boilerplate) === -1 ) { abort(msg.no_such_bp); }
+
+// Check that the source directory exists
+
+var source_dir = path.resolve(__dirname, '..', boilerplates[bp_index])
+  , exists = fs.existsSync(source_dir);
+
+if( !exists ) { abort(msg.missing_source, boilerplate); }
+
+// Get some info about their app and copy the files over
+
+program.prompt(msg.welcome, function (name) {
+  
+  var target_dir = path.resolve(process.cwd(), name);
+
+  // Do a quick checksee with the user
+
+  program.confirm(msg.getting_ready, function (ok) {
+
+    if( !ok ) { abort(); }
+
+    // Make sure that the target is ok to use
+
+    check_dir(target_dir, function (err) {
+      if( err ) { return abort(err); }
+
+      // We can now think about copying stuff over
+
+      fs.mkdirp(target_dir, function (err) {
+        if( err ) { return abort(err); }
+
+        // And do the copying
+
+        console.log(msg.copying, boilerplate, name);
+
+        ncp(source_dir, target_dir, function (err) {
+          if( err ) { return abort(err); }
+
+          // Say bye!
+
+          console.log(msg.exit, name);
+          process.exit(0);
+        });
+      });
+    });
+  });
+});
