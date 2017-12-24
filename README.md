@@ -2,7 +2,7 @@
 
 This repository aims to make it easy to add tests to an existing client-side JavaScript project. It presently provides a boilerplate for the following frameworks:
 
-- [Mocha](http://visionmedia.github.com/mocha/)
+- [Mocha](http://mochajs.org/)
 
 I'm actively soliciting boilerplates for the following frameworks:
 
