@@ -7,7 +7,7 @@ This repository aims to make it easy to add tests to an existing client-side Jav
 I'm actively soliciting boilerplates for the following frameworks:
 
 - [QUnit](http://qunitjs.com/)
-- [Jasmine](http://pivotal.github.com/jasmine/)
+- [Jasmine](https://jasmine.github.io/)
 - [CasperJS](http://casperjs.org/)
 
 I also welcome boilerplates for any frameworks I haven't listed!
